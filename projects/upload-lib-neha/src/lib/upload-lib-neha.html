@@ -1,0 +1,43 @@
+<label><strong>Upload file </strong>(only .jpg, .jpeg, .png, .pdf, .doc, .docx format and max file size is 2MB)</label>
+<div class="container" (fileDropped)="onFileDropped($event)">
+  <input class="customInput"
+      type="file"
+      #fileReference
+      id="fileReference"
+      multiple
+      (change)="fileBrowseHandler($event.target.files)"
+    />
+    <h3><i style="color: blue;" class="fa fa-cloud-upload"></i>&nbsp; Drop files to attach, or <span><a class="pointer" for="fileReference">Browse</a></span></h3>
+  </div>
+  <div class="files-list" *ngIf="files.length > 0">
+    <div class="each-file" *ngFor="let file of files; let i = index">
+        <h4 class="name">
+          {{ file.name }}
+        </h4>
+        <h4 class="size">
+          {{ file.newSize }}
+        </h4>
+        <h4 class="size">
+          {{ file.description }}
+        </h4>
+        <a class="pointer custom-delete" (click)="deleteFile(i)"><i class="fa fa-times"></i></a>
+    </div>
+  </div>
+  <button [hidden]="true" #search class="btn btn-lg btn-outline-primary" (click)="open(mymodal)">Open My Modal</button>
+   
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Description</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <label>Description</label>
+    <input class="form-control" placeholder="Description" id="desc" name="description" type="text" [(ngModel)]="desc">
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="addDescription();modal.dismiss('Cross click')">Save</button>
+  </div>
+</ng-template>
